@@ -1,0 +1,90 @@
+@import '../../../../main-styles';
+
+.centered-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+  width: 100%;
+
+  .task-manager-content {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    max-width: 66.15vw;
+    max-height: 80.1vh;
+
+    .title {
+      font-family: 'Roboto';
+      font-size: pxToRem(28);
+      text-transform: uppercase;
+      letter-spacing: pxToRem(2);
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      width: 26%;
+      min-width: pxToRem(125);
+      border-radius: pxToRem(8) 0 0 pxToRem(8);
+
+      .list-menu {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+
+        .list-menu-item {
+          display: flex;
+          align-items: center;
+          padding: pxToRem(10) pxToRem(15);
+          color: #5F5F5F;
+          border-radius: pxToRem(4);
+
+          &:hover {
+            background-color: $light;
+          }
+
+          &.is-active {
+            background-color: #CFF8EF;
+            color: $dark-green;
+          }
+        }
+      }
+    }
+
+    .task-list-container {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      border-radius: 0 pxToRem(8) pxToRem(8) 0;
+
+      .task {
+        margin-top: pxToRem(10);
+        padding: pxToRem(15) pxToRem(20);
+        border-radius: pxToRem(4);
+        background-color: white;
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+        &:not(.complete) {
+          cursor: pointer;
+
+          &:active {
+            transform: scale(0.95);
+          }
+
+          &:hover {
+            box-shadow: 0 0 0 pxToRem(5) #EEEEEE;
+          }
+        }
+
+        &.complete {
+          opacity: 0.7;
+          text-decoration: line-through;
+        }
+      }
+    }
+  }
+}
+
+

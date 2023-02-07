@@ -1,0 +1,49 @@
+// Aqui e onde ficam as importações, estilos globais e variáveis.
+
+// Importando Fontes e inserindo variáveis
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+$turquoise: #44DDD0;
+$green: #27D7A1;
+$light-green: #45F69E;
+$dark-green: #006450;
+
+$light: #F8F8F8;
+
+// Mudando variáveis globais do bulma
+
+$family-sans-serif: 'Nunito', 'sans-serif';
+$primary: $green;
+$link: $light-green;
+
+// Mudando variáveis de componente bulma
+
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+
+// Estilos globais
+
+.light-theme {
+  background-image: linear-gradient(to left top, #04e5c3, #00dfc3, #00d9c2, #00d2c1, #00ccc0, #00c7be, #00c1bc, #00bcba, #00b6b7, #00b0b5, #00aab1, #00a4ae);
+}
+
+.dark-theme {
+  background-image: linear-gradient(to left top, #058497, #127e92, #1a788d, #207388, #246d82, #27687d, #2a6377, #2c5e72, #2e586c, #2f5365, #2f4d5f, #2f4858);
+}
+
+html {
+  background-image: linear-gradient(to left top, #04e5c3, #00dfc3, #00d9c2, #00d2c1, #00ccc0, #00c7be, #00c1bc, #00bcba, #00b6b7, #00b0b5, #00aab1, #00a4ae);
+}
+
+html, body {
+  height: 100%;
+}
+
+// Função px para rem
+
+@function pxToRem($px) {
+  @return calc($px / 16) + rem;
+}
+
