@@ -54,10 +54,21 @@
     }
 
     .task-list-container {
+      position: relative;
       display: flex;
       flex-direction: column;
       flex: 1;
       border-radius: 0 pxToRem(8) pxToRem(8) 0;
+
+      .circle-add-button {
+        height: pxToRem(50);
+        width: pxToRem(50);
+        position: absolute;
+        bottom: pxToRem(35);
+        right: pxToRem(35);
+
+        border-radius: pxToRem(25);
+      }
 
       .task {
         margin-top: pxToRem(10);
@@ -66,7 +77,7 @@
         background-color: white;
         transition: box-shadow 0.2s ease, transform 0.2s ease;
 
-        &:not(.complete) {
+        &:not(.completed) {
           cursor: pointer;
 
           &:active {
@@ -78,7 +89,7 @@
           }
         }
 
-        &.complete {
+        &.completed {
           opacity: 0.7;
           text-decoration: line-through;
         }

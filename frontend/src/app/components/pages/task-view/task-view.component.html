@@ -9,18 +9,12 @@
       <!-- Listas -->
 
       <div class="list-menu">
-        <a class="list-menu-item is-active">
-          <p>List #1</p>
-        </a>
-        <a class="list-menu-item">
-          <p>List #2</p>
-        </a>
-        <a class="list-menu-item">
-          <p>List #3</p>
+        <a class="list-menu-item" *ngFor="let list of lists" routerLinkActive="is-active" [routerLink]="['/lists', list._id]">
+          <p>{{ list.title }}</p>
         </a>
       </div>
 
-      <button class="button is-primary has-text-white">+ New List</button>
+      <button routerLink="/new-list" class="button is-primary has-text-white">+ New List</button>
     </div>
 
     <div class="task-list-container px-5 py-5 has-background-light">
@@ -29,16 +23,14 @@
       </h1>
 
       <!-- Tarefas -->
+      <div class="task" *ngFor="let task of tasks" (click)="onTaskClick(task)"
+        [ngClass]="{ 'completed': task.completed }">
+        <p>{{ task.title }}</p>
+      </div>
 
-      <div class="task">
-        <p>This is something i have to do!</p>
-      </div>
-      <div class="task complete">
-        <p>This is something i have to do!</p>
-      </div>
-      <div class="task">
-        <p>This is something i have to do!</p>
-      </div>
+      <button routerLink="./new-task" class="circle-add-button button is-primary has-text-white">
+        <img src="../../../../assets/plus-icon.svg">
+      </button>
     </div>
 
   </div>

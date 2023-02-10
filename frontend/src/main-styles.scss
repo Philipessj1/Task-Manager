@@ -47,3 +47,9 @@ html, body {
   @return calc($px / 16) + rem;
 }
 
+.create-card {
+  min-height: pxToRem(200);
+  width: 100%;
+  padding: pxToRem(35);
+}
+

@@ -6,6 +6,15 @@ const { mongoose, dbConnect } = require('./db/mongoose');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+// CORS headers middleware
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // mongoose models
 
 const { List, Task } = require('./db/models/models');
@@ -46,7 +55,7 @@ app.patch('/lists/:id', (req, res) => {
   // atualiza uma lista especificada por id com novos valores
   List.findOneAndUpdate({ _id: req.params.id }, {
     $set: req.body
-  }).then(() => res.sendStatus(200))
+  }).then(() => res.send({ message: 'Updated' }))
     .catch(err => console.log(err));
 });
 
@@ -101,7 +110,7 @@ app.patch('/lists/:listId/tasks/:taskId', (req, res) => {
     _id: req.params.taskId
     }, {
     $set: req.body
-  }).then(() => res.sendStatus(200))
+  }).then(() => res.send({ message: 'Updated' }))
     .catch(err => console.log(err));
 });
 
