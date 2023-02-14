@@ -97,6 +97,11 @@ UserSchema.methods.createSession = function() {
 
 // MODEL Methods (métodos estáticos)
 
+UserSchema.statics.getJWTSecret = () => {
+  return jwtSecret;
+}
+
+
 UserSchema.statics.findByIdAndToken = function(_id, token) {
   // encontra usuário por id e token
   const User = this;
