@@ -14,7 +14,7 @@ import { TaskService } from './../../../services/task.service';
 export class TaskViewComponent implements OnInit {
   tasksElements: any;
   lists: List[] = [];
-  tasks: Task[] = [];
+  tasks: Task[] | undefined = [];
 
   constructor(
     private listService: ListService,
@@ -35,9 +35,13 @@ export class TaskViewComponent implements OnInit {
 
   getTasks() {
     this.route.params.subscribe((params: Params) => {
-      this.taskService.getTasks(params['listId']).subscribe((data: Task[]) => {
-        this.tasks = data;
-      });
+      if (params['listId']) {
+        this.taskService.getTasks(params['listId']).subscribe((data: Task[]) => {
+          this.tasks = data;
+        });
+      } else {
+        this.tasks = undefined;
+      }
     })
   }
 

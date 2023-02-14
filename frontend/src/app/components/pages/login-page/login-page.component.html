@@ -1,0 +1,30 @@
+<div class="centered-content">
+  <div class="login-box card">
+    <div class="field">
+      <h1 class="title has-text-centered has-text-primary is-uppercase">
+        Login
+      </h1>
+      <p class="control has-icons-left">
+        <input #email type="email" placeholder="Email" class="input has-background-light">
+        <span class="icon is-small is-left">
+          <i class="fas fa-envelope"></i>
+        </span>
+      </p>
+    </div>
+    <div class="field">
+      <p class="control has-icons-left">
+        <input #password type="password" placeholder="Password" class="input has-background-light">
+        <span class="icon is-small is-left">
+          <i class="fas fa-lock"></i>
+        </span>
+      </p>
+    </div>
+    <div class="field is-pulled-right">
+      <p class="control">
+        <button class="button is-success has-text-white" (click)="loginClicked(email.value, password.value)">
+          Login
+        </button>
+      </p>
+    </div>
+  </div>
+</div>

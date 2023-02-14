@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 import { Task } from '../interfaces/task';
 
@@ -9,7 +10,7 @@ import { Task } from '../interfaces/task';
 })
 export class TaskService {
 
-  readonly ROOT_URI = 'http://localhost:3000';
+  readonly ROOT_URI = environment.baseApiUrl;
 
   constructor(
     private http: HttpClient
