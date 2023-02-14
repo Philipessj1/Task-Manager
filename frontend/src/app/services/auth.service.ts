@@ -30,6 +30,29 @@ export class AuthService {
 
         if (accToken && refToken) {
           this.setSession(userId, accToken, refToken);
+          this.router.navigate(['lists']);
+        } else {
+          console.log('Error setSession');
+        }
+      })
+    )
+  }
+
+  signup(email: string, password: string) {
+    return this.http.post(`${this.ROOT_URL}/users`, {
+      email, password
+    }, {
+      observe: 'response'
+    }).pipe(
+      shareReplay(),
+      tap((res: HttpResponse<any>) => {
+        const userId = res.body._id;
+        const accToken = res.headers.get('x-access-token');
+        const refToken = res.headers.get('x-refresh-token');
+
+        if (accToken && refToken) {
+          this.setSession(userId, accToken, refToken);
+          this.router.navigate(['lists']);
         } else {
           console.log('Error setSession');
         }
@@ -39,6 +62,8 @@ export class AuthService {
 
   logout() {
     this.removeSession();
+
+    this.router.navigateByUrl('/login');
   }
 
   private setSession(userId: string, accessToken: string, refreshToken: string) {
@@ -49,8 +74,8 @@ export class AuthService {
 
   private removeSession() {
     localStorage.removeItem('user-id');
-    localStorage.removeItem('access-token');
-    localStorage.removeItem('refresh-token');
+    localStorage.removeItem('x-access-token');
+    localStorage.removeItem('x-refresh-token');
   }
 
   getAccessToken() {
@@ -58,10 +83,28 @@ export class AuthService {
   }
 
   getRefreshToken() {
-    return localStorage.getItem('x-refresh-token');
+    return localStorage.getItem('x-refresh-token')!;
+  }
+
+  getUserId() {
+    return localStorage.getItem('user-id')!;
   }
 
   setAccessToken(accessToken: string) {
     localStorage.setItem('x-access-token', accessToken)
+  }
+
+  getNewAccessToken() {
+    return this.http.get(`${this.ROOT_URL}/users/me/access-token`, {
+      headers: {
+        'x-refresh-token': this.getRefreshToken(),
+        '_id': this.getUserId()
+      },
+      observe: 'response'
+    }).pipe(
+      tap((res: HttpResponse<any>) => {
+        this.setAccessToken(res.headers.get('x-access-token')!);
+      })
+    )
   }
 }

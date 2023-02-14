@@ -1,27 +1,53 @@
-import { AuthService } from 'src/app/services/auth.service';
-import { catchError, Observable, throwError } from 'rxjs';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, Observable, switchMap, tap, throwError, empty } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebReqInterceptor implements HttpInterceptor {
 
+  refreshingAccessToken: boolean = false;
+
   constructor(
     private authService: AuthService
   ) { }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const request = this.addAuthHeader(req);
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
+    request = this.addAuthHeader(request);
 
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
-        console.log(err);
+        if(err.status === 401 && !this.refreshingAccessToken) {
+          // refresh access token
+          return this.refreshAccessToken().pipe(
+            switchMap(() => {
+              request = this.addAuthHeader(request);
+              return next.handle(request);
+            }),
+            catchError((err: any) => {
+              console.log(err);
+              this.authService.logout();
+              return empty();
+            })
+          )
+        }
 
         return throwError(err);
       })
     )
+  }
+
+  refreshAccessToken() {
+    this.refreshingAccessToken = true;
+    return this.authService.getNewAccessToken().pipe(
+      tap(() => {
+        this.refreshingAccessToken = false;
+        console.log('Access Token Refreshed!');
+      })
+    );
   }
 
   addAuthHeader(request: HttpRequest<any>) {
