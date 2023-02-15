@@ -10,15 +10,23 @@ import { List } from './../interfaces/list';
 })
 export class ListService {
 
-  readonly ROOT_URI = environment.baseApiUrl;
+  readonly ROOT_URI = `${environment.baseApiUrl}/lists`;
 
   constructor( private http: HttpClient ) { }
 
   createList(title: string): Observable<List> {
-    return this.http.post<List>(`${this.ROOT_URI}/lists`, { title });
+    return this.http.post<List>(this.ROOT_URI, { title });
+  }
+
+  updateList(listId: string, title: string): Observable<List> {
+    return this.http.patch<List>(`${this.ROOT_URI}/${listId}`, { title });
   }
 
   getLists(): Observable<List[]> {
-    return this.http.get<List[]>(`${this.ROOT_URI}/lists`);
+    return this.http.get<List[]>(this.ROOT_URI);
+  }
+
+  deleteList(listId: string) {
+    return this.http.delete(`${this.ROOT_URI}/${listId}`);
   }
 }

@@ -20,14 +20,45 @@
     <div class="task-list-container px-5 py-5 has-background-light">
       <div *ngIf="tasks">
         <!-- Tarefas -->
+        <div class="top-bar">
+          <h1 class="title has-text-primary">
+            Tasks
+          </h1>
 
-        <h1 class="title has-text-primary">
-          Tasks
-        </h1>
+          <div class="dropdown is-hoverable is-right">
+            <div class="dropdown-trigger">
+              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                <span class="icon is-small">
+                  <i class="fas fa-cog" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+              <div class="dropdown-content">
+                <a [routerLink]="['/edit-list', selectedListId]" class="dropdown-item">
+                  Edit
+                </a>
+                <a (click)="onClickDeleteList()" class="dropdown-item has-text-danger">
+                  Delete
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="task" *ngFor="let task of tasks" (click)="onTaskClick(task)"
           [ngClass]="{ 'completed': task.completed }">
-          <p>{{ task.title }}</p>
+          <div class="task-text">
+            <p>{{ task.title }}</p>
+          </div>
+          <div class="buttons are-small">
+            <button class="button" [routerLink]="['/lists', selectedListId ,'edit-task', task._id]">
+              <i class="fas fa-pen-to-square"></i>
+            </button>
+            <button (click)="onClickDeleteTask(task._id)" class="button is-danger">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
 
         <h3 *ngIf="tasks.length === 0" class="has-text-grey-light is-size-4 has-text-centered">Please create a task on the button down below</h3>
