@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
@@ -21,6 +22,7 @@ export class TaskViewComponent implements OnInit {
   constructor(
     private listService: ListService,
     private taskService: TaskService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -53,18 +55,20 @@ export class TaskViewComponent implements OnInit {
 
   onClickDeleteList() {
     return this.listService.deleteList(this.selectedListId).subscribe(
-      (res: any) => {
-      console.log(res);
+      () => {
       this.router.navigate(['lists']);
     })
   }
 
   onClickDeleteTask(taskId: string) {
     return this.taskService.deleteTask(this.selectedListId, taskId).subscribe(
-      (res: any) => {
-      console.log(res);
+      () => {
       this.tasks = this.tasks.filter(data => data._id !== taskId);
     })
+  }
+
+  onClickLogout() {
+    this.authService.logout();
   }
 
 }

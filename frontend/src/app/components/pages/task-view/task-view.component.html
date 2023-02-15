@@ -2,9 +2,16 @@
   <div class="task-manager-content is-large">
 
     <div class="sidebar px-5 py-5 has-background-white">
-      <h1 class="title has-text-primary">
-        Lists
-      </h1>
+      <div class="top-bar">
+        <h1 class="title has-text-primary">
+          Lists
+        </h1>
+        <button (click)="onClickLogout()" class="button is-danger is-inverted">
+          <span class="icon is-small">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </span>
+        </button>
+      </div>
 
       <!-- Listas -->
 

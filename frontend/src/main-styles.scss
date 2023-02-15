@@ -15,7 +15,7 @@ $light: #F8F8F8;
 
 $family-sans-serif: 'Nunito', 'sans-serif';
 $primary: $green;
-$link: $light-green;
+$link: $turquoise;
 
 // Mudando variáveis de componente bulma
 
@@ -24,14 +24,6 @@ $input-border-color: transparent;
 $input-shadow: none;
 
 // Estilos globais
-
-.light-theme {
-  background-image: linear-gradient(to left top, #04e5c3, #00dfc3, #00d9c2, #00d2c1, #00ccc0, #00c7be, #00c1bc, #00bcba, #00b6b7, #00b0b5, #00aab1, #00a4ae);
-}
-
-.dark-theme {
-  background-image: linear-gradient(to left top, #058497, #127e92, #1a788d, #207388, #246d82, #27687d, #2a6377, #2c5e72, #2e586c, #2f5365, #2f4d5f, #2f4858);
-}
 
 html {
   background-image: linear-gradient(to left top, #04e5c3, #00dfc3, #00d9c2, #00d2c1, #00ccc0, #00c7be, #00c1bc, #00bcba, #00b6b7, #00b0b5, #00aab1, #00a4ae);
@@ -53,3 +45,21 @@ html, body {
   padding: pxToRem(35);
 }
 
+.centered-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+  width: 100%;
+
+  .login-box {
+    padding: pxToRem(35);
+    width: pxToRem(340);
+  }
+
+  .bottom-field {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

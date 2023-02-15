@@ -30,7 +30,6 @@ export class EditListComponent implements OnInit {
       console.log('Erro');
     } else {
       this.listService.updateList(this.listId, title).subscribe((res: List) => {
-        console.log(res);
         this.router.navigate([`/lists/${res._id}`]);
       });
     }

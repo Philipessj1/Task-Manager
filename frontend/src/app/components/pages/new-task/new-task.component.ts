@@ -30,7 +30,6 @@ export class NewTaskComponent implements OnInit {
       console.log('Erro');
     } else {
       this.taskService.createTask(title, this.listId).subscribe((res: Task) => {
-        console.log(res);
         this.router.navigate([`/lists/${this.listId}`]);
       });
     }

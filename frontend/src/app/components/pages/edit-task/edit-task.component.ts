@@ -1,7 +1,8 @@
-import { TaskService } from './../../../services/task.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Task } from 'src/app/interfaces/task';
+
+import { TaskService } from './../../../services/task.service';
 
 @Component({
   selector: 'app-edit-task',
@@ -31,7 +32,6 @@ export class EditTaskComponent implements OnInit {
       console.log('Erro');
     } else {
       this.taskService.updateTask(title, this.listId, this.taskId).subscribe((res: Task) => {
-        console.log(res);
         this.router.navigate([`/lists/${this.listId}`]);
       });
     }

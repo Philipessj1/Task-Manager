@@ -24,7 +24,6 @@ export class NewListComponent implements OnInit {
       console.log('Erro');
     } else {
       this.listService.createList(title).subscribe((res: List) => {
-        console.log(res);
         this.router.navigate([`/lists/${res._id}`]);
       });
     }

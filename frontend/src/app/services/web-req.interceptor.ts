@@ -35,7 +35,6 @@ export class WebReqInterceptor implements HttpInterceptor {
             })
           )
         }
-
         return throwError(err);
       })
     )
@@ -53,7 +52,6 @@ export class WebReqInterceptor implements HttpInterceptor {
       this.refreshingAccessToken = true;
       return this.authService.getNewAccessToken().pipe(
         tap(() => {
-          console.log('Access Token Refreshed!');
           this.refreshingAccessToken = false;
         })
       );
@@ -70,7 +68,6 @@ export class WebReqInterceptor implements HttpInterceptor {
         }
       });
     }
-
     return request;
   }
 }
